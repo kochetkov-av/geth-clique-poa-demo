@@ -1,0 +1,13 @@
+pk=$1
+bn=$2
+
+geth init --datadir data genesis.json
+
+geth --datadir data \
+  --allow-insecure-unlock \
+  --http --http.addr '0.0.0.0' --http.port 8545 --http.corsdomain '*' --http.api 'admin,debug,web3,eth,txpool,personal,clique,miner,net' \
+  --networkid 123321 \
+  --unlock "$pk" \
+  --password "/dev/null" \
+  --bootnodes "$bn" \
+  --mine

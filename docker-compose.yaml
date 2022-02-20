@@ -1,0 +1,50 @@
+version: "3"
+
+services:
+
+  bootnode:
+    image: ethereum/client-go:alltools-release-1.10
+    ports:
+      - "30303:30303"
+      - "30301:30301"
+    command: [ "bootnode", "-nodekeyhex", "93f6158b5bb789c73389995674d37a85e4e771a4e98a53852b11f8a0862be870", "-verbosity", "4" ]
+
+  node:
+    image: ethereum/client-go:alltools-release-1.10
+    volumes:
+      - ./node.sh:/node.sh:ro
+      - ./genesis.json:/genesis.json:ro
+    ports:
+      - "8545:8545"
+    command: [ "sh", "/node.sh", "enode://6107c391547b8e25cf91e11c3acca3be6322356aa4f50d4eaebc118c54d4e1aaa993c850844c5bd4458e819b22d33ea18a35ecada5945763b57aceb9980690bc@bootnode:0?discport=30301" ]
+
+  tools:
+    image: ethereum/client-go:alltools-release-1.10
+    volumes:
+      - ./genesis.json:/genesis.json:ro
+    command: [ "sh", "-c", "tail -f /dev/null" ]
+
+
+  validator1:
+    image: ethereum/client-go:alltools-release-1.10
+    volumes:
+      - ./validator.sh:/validator.sh:ro
+      - ./keystore/1_2d558F4633FF8011C27401c0070Fd1E981770B94.json:/data/keystore/1_2d558F4633FF8011C27401c0070Fd1E981770B94:ro
+      - ./genesis.json:/genesis.json:ro
+    command: [ "sh", "/validator.sh", "0x2d558F4633FF8011C27401c0070Fd1E981770B94", "enode://6107c391547b8e25cf91e11c3acca3be6322356aa4f50d4eaebc118c54d4e1aaa993c850844c5bd4458e819b22d33ea18a35ecada5945763b57aceb9980690bc@bootnode:0?discport=30301" ]
+
+  validator2:
+    image: ethereum/client-go:alltools-release-1.10
+    volumes:
+      - ./validator.sh:/validator.sh:ro
+      - ./keystore/2_66DFE79b64F64718430ffc468806FB3E13853651.json:/data/keystore/2_66DFE79b64F64718430ffc468806FB3E13853651:ro
+      - ./genesis.json:/genesis.json:ro
+    command: [ "sh", "/validator.sh", "0x66DFE79b64F64718430ffc468806FB3E13853651", "enode://6107c391547b8e25cf91e11c3acca3be6322356aa4f50d4eaebc118c54d4e1aaa993c850844c5bd4458e819b22d33ea18a35ecada5945763b57aceb9980690bc@bootnode:0?discport=30301" ]
+
+  validator3:
+    image: ethereum/client-go:alltools-release-1.10
+    volumes:
+      - ./validator.sh:/validator.sh:ro
+      - ./keystore/3_388C9150daea7e36560c6A22A88D6fE7d3749845.json:/data/keystore/3_388C9150daea7e36560c6A22A88D6fE7d3749845:ro
+      - ./genesis.json:/genesis.json:ro
+    command: [ "sh", "/validator.sh", "0x388C9150daea7e36560c6A22A88D6fE7d3749845", "enode://6107c391547b8e25cf91e11c3acca3be6322356aa4f50d4eaebc118c54d4e1aaa993c850844c5bd4458e819b22d33ea18a35ecada5945763b57aceb9980690bc@bootnode:0?discport=30301" ]
