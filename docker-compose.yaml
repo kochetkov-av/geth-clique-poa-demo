@@ -5,7 +5,6 @@ services:
   bootnode:
     image: ethereum/client-go:alltools-release-1.10
     ports:
-      - "30303:30303"
       - "30301:30301"
     command: [ "bootnode", "-nodekeyhex", "93f6158b5bb789c73389995674d37a85e4e771a4e98a53852b11f8a0862be870", "-verbosity", "4" ]
 

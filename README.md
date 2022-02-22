@@ -60,14 +60,16 @@ docker-compose exec validator1 geth attach /data/geth.ipc --exec 'clique.propose
 docker-compose exec validator2 geth attach /data/geth.ipc --exec 'clique.propose("0x388C9150daea7e36560c6A22A88D6fE7d3749845", true)'
 ```
 
-Check clique with node:
+Check clique status and signers with node:
 
 ```
-docker-compose exec node geth attach /data/geth.ipc --exec 'clique'
-```
-
-Check clique signers with node:
-
-```
+docker-compose exec node geth attach /data/geth.ipc --exec 'clique.status()'
 docker-compose exec node geth attach /data/geth.ipc --exec 'clique.getSigners()'
 ```
+
+## Test deploy and blockchain interactions:
+
+Test account Address / PK
+
+0x71f9BE88bE65aaa703918b0a09f84D4b015A1bc8
+f9142d980d23838d6c309b324ff417970e8229189405379b6a7e6dfe0df0263c
