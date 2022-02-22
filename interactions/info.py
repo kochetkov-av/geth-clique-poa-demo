@@ -9,3 +9,11 @@ latest = w3.eth.get_block('latest')
 print(w3.eth.block_number)
 
 print(latest)
+
+addresses = [
+    '0x2d558F4633FF8011C27401c0070Fd1E981770B94', '0x71f9BE88bE65aaa703918b0a09f84D4b015A1bc8',
+    '0x66DFE79b64F64718430ffc468806FB3E13853651', '0x388C9150daea7e36560c6A22A88D6fE7d3749845'
+]
+
+for address in addresses:
+    print(address, w3.eth.get_balance(address))

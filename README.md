@@ -67,9 +67,40 @@ docker-compose exec node geth attach /data/geth.ipc --exec 'clique.status()'
 docker-compose exec node geth attach /data/geth.ipc --exec 'clique.getSigners()'
 ```
 
-## Test deploy and blockchain interactions:
+Send 5 ETH to test account:
+```
+docker-compose exec validator1 geth attach /data/geth.ipc --exec 'eth.sendTransaction({from: "0x2d558F4633FF8011C27401c0070Fd1E981770B94",to: "0x71f9BE88bE65aaa703918b0a09f84D4b015A1bc8", value: "5000000000000000000"})'
+```
 
-Test account Address / PK
+## Test smart contract deploy and interactions with [web3.py](https://github.com/ethereum/web3.py):
 
+Test account Address / PK with balance from genesis block:
+
+```
 0x71f9BE88bE65aaa703918b0a09f84D4b015A1bc8
 f9142d980d23838d6c309b324ff417970e8229189405379b6a7e6dfe0df0263c
+```
+
+Install web3:
+
+```
+pip3 install web3
+```
+
+Get last block info:
+
+```
+python3 interactions/info.py
+```
+
+Deploy storage smart contract:
+
+```
+python3 interactions/deploy.py
+```
+
+Retrieve and store value:
+
+```
+python3 interactions/retrieve_store.py
+```
